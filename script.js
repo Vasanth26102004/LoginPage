@@ -20,19 +20,30 @@ iconclose.addEventListener('click',()=> {
     wrapper.classList.remove('active-popup');
 });
 
-$(document).ready(function() {
-    $("register").click(function() {
-        
+const passwordInput = document.getElementById('PassType');
+const icon = document.getElementById('icon');
+
+function togglePassword(icon) {
+    if (icon.classList.contains('fa-lock')) {
+        icon.classList.remove('fa-lock');
+        icon.classList.add('fa-lock-open');
+    } else {
+        icon.classList.remove('fa-lock-open');
+        icon.classList.add('fa-lock');
+    }
+}
+
+
+$(document).ready(function(){
+    $('#reg_form').submit(function(e){
+        e.preventDefault();
         $.ajax({
-            url: 'db.php', 
-            type: 'POST', 
-            data: { action: 'rregister' }, 
-            success: function(response) {
-                // Handle the response from the PHP file
-                $("#message").html(response);
-            },
-            error: function(error) {
-                console.log(error);
+            type: 'POST',
+            url: 'register.php',
+            data: $(this).serialize(),
+            success: function(response){
+                $('#reg_msg').text(response);
+                $('#reg_form')[0].reset();
             }
         });
     });

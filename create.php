@@ -5,11 +5,13 @@ $username = "root";
 $password = "";
 $dbname = "admin";
 
-$create_table_sql = "CREATE TABLE IF NOT EXISTS page01
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+$create_table_sql = "CREATE TABLE IF NOT EXISTS page03
 (
 Username varchar(20),
 Email varchar(50) NOT NULL,
-Pass varchar(20),
+Pass varchar(200),
 PRIMARY KEY (Email),
 UNIQUE (Username,Pass)
 )";

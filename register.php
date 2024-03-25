@@ -1,45 +1,44 @@
 <?php
-/*$servername = "localhost";
-$username = "root";
-$password = "";
 
-$conn = new mysqli($servername, $username, $password);
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+    // Database connection details
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "admin";
 
-$create_database_sql = "CREATE DATABASE IF NOT EXISTS admin";
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-if ($conn->query($create_database_sql) === FALSE){
-    echo "Error creating Database: " . $conn->error . "<br>";
-}*/
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "admin";
-
-
-$conn = new mysqli($servername, $username, $password,$dbname);
-
-    $username = $_POST['user'];
-    $email = $_POST['email'];
-    $pass = $_POST['pass'];
-
-    $insert_sql = "INSERT INTO page01 (Username,Email,Pass)
-                        VALUES ('$username','$email','$pass')";
-
-    if ($conn->query($insert_sql) === TRUE) {
-        echo "Registered successfully<br>";
-    } else {
-        echo "Error inserting value: " . $conn->error . "<br>";
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
 
+        // Retrieve and sanitize user input
+        $username = $conn->real_escape_string($_POST['user']);
+        $email = $conn->real_escape_string($_POST['email']);
+        $pass = $conn->real_escape_string($_POST['pass']);
 
-$conn->close();
+        // Hash the password for security
+        $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
+
+        // Prepare insert statement
+        $stmt = $conn->prepare("INSERT INTO page03 (Username,Email,Pass) VALUES (?,?,?)");
+        $stmt->bind_param("sss", $username, $email, $hashed_password);
+
+        // Execute the insert statement
+        if ($stmt->execute()) {
+            echo "Registered successfully<br>";
+        } else {
+        }
+
+        // Close statement
+        $stmt->close();
+
+    // Close connection
+    $conn->close();
 }
 ?>

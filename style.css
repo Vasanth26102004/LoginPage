@@ -96,7 +96,7 @@ header{
     align-items: center;
     overflow: hidden;
     transform: scale(0);
-    transition: transform .5s ease,height .2s ease;
+    transition: transform .5s ease,height .2s ease,position .2s ease-out;
 }
 
 .wrapper.active-popup{
@@ -105,6 +105,7 @@ header{
 
 .wrapper.active{
     height: 520px;
+    position:relative ;
 }
 
 .wrapper .form-box{
@@ -236,6 +237,7 @@ header{
     font-size: 1.2em;
     color: #162938;
     line-height: 57px;
+    cursor: pointer;
 }
 
 .remember-forget{
