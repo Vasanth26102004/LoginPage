@@ -15,6 +15,9 @@ if ($conn->query($create_database_sql) === FALSE){
     echo "Error creating Database: " . $conn->error . "<br>";
 }*/
 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -38,4 +41,5 @@ $conn = new mysqli($servername, $username, $password,$dbname);
 
 
 $conn->close();
+}
 ?>
