@@ -1,4 +1,0 @@
-git clone [link]
-git add . //for adding all files
-git commit -m "message"
-git push origin [branch name]
